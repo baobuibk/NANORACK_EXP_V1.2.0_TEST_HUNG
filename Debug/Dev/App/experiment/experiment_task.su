@@ -1,0 +1,14 @@
+../Dev/App/experiment/experiment_task.c:34:13:experiment_task_init	32	static
+../Dev/App/experiment/experiment_task.c:40:13:experiment_task_dispatch	24	static
+../Dev/App/experiment/experiment_task.c:50:6:experiment_task_ctor	24	static
+../Dev/App/experiment/experiment_task.c:58:6:experiment_task_singleton_ctor	40	static
+../Dev/App/experiment/experiment_task.c:69:6:experiment_task_start	16	static
+../Dev/App/experiment/experiment_task.c:75:16:experiment_task_state_manual_handler	32	static
+../Dev/App/experiment/experiment_task.c:107:16:experiment_task_state_data_aqui_handler	32	static
+../Dev/App/experiment/experiment_task.c:162:16:experiment_task_state_data_send_handler	16	static
+../Dev/App/experiment/experiment_task.c:168:10:experiment_task_laser_set_current	24	static
+../Dev/App/experiment/experiment_task.c:181:10:experiment_task_laser_get_current	24	static
+../Dev/App/experiment/experiment_task.c:187:10:experiment_task_int_laser_switchon	16	static
+../Dev/App/experiment/experiment_task.c:199:10:experiment_task_int_laser_switchoff	16	static
+../Dev/App/experiment/experiment_task.c:210:10:experiment_task_ext_laser_switchon	16	static
+../Dev/App/experiment/experiment_task.c:222:10:experiment_task_ext_laser_switchoff	16	static
