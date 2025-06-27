@@ -12,10 +12,10 @@
 #include "adg1414.h"
 #include "mcp4902.h"
 
-typedef enum{SPI_MODE_0, SPI_MODE_1, SPI_MODE_2, SPI_MODE_3} spi_mode_t;
+typedef enum{SPI_MODE_0, SPI_MODE_1, SPI_MODE_2, SPI_MODE_3} bsp_laser_spi_mode_t;
 
 void bsp_laser_set_spi_prescaler(uint32_t Prescaler);
-void bsp_laser_set_spi_mode(spi_mode_t spi_mode);
+void bsp_laser_set_spi_mode(bsp_laser_spi_mode_t spi_mode);
 
 void bsp_laser_init(void);
 void bsp_laser_set_current(uint32_t id, uint32_t percent);

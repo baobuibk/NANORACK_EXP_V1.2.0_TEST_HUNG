@@ -17,7 +17,7 @@ void bsp_laser_set_spi_prescaler(uint32_t Prescaler)
     LL_SPI_Enable(SPI4);
 }
 
-void bsp_laser_set_spi_mode(spi_mode_t spi_mode)
+void bsp_laser_set_spi_mode(bsp_laser_spi_mode_t spi_mode)
 {
 	LL_SPI_Disable(SPI4);
 	switch(spi_mode)

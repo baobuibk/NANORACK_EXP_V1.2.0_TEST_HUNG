@@ -168,60 +168,42 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  bsp_spi_ram_init();
 
-
-
-
-
-  uint8_t buffer[8] = {0};
-
-  bsp_spi_ram_read_id(buffer);
-  bsp_spi_ram_read_id(buffer);
-
-  uint8_t write_buffer[50];
-  uint8_t read_buffer[110] = {0};
-//  for (uint32_t i=0; i<1024;i++) write_buffer[i] = i;
-//  bsp_spi_ram_write_polling(0, 1024, write_buffer);
-//  bsp_spi_ram_read_polling(0, 1024, read_buffer);
-//  for (uint32_t i=0; i<1024;i++) read_buffer[i] = 0;
-//  bsp_spi_ram_fast_read_polling(0, 1024, read_buffer);
-  for (uint32_t i=0; i<50;i++) write_buffer[i] = i;
-  bsp_spi_ram_write_dma(0, 50, write_buffer);
-  while(!bsp_spi_ram_is_transfer_done());
-
-  bsp_spi_ram_write_dma(50, 50, write_buffer);
-  while(!bsp_spi_ram_is_transfer_done());
-
-
-
-
-
-  for (uint32_t i=0; i<100;i++) read_buffer[i] = 0;
-  bsp_spi_ram_read_dma(0, 100, read_buffer);
-  while(!bsp_spi_ram_is_transfer_done());
-
-  for (uint32_t i=0; i<100;i++) read_buffer[i] = 0;
-    bsp_spi_ram_read_dma(50, 50, read_buffer);
-    while(!bsp_spi_ram_is_transfer_done());
-
-    for (uint32_t i=0; i<100;i++) read_buffer[i] = 0;
-      bsp_spi_ram_read_dma(0, 50, read_buffer);
-      while(!bsp_spi_ram_is_transfer_done());
-
-//  for (uint32_t i=0; i<50;i++) read_buffer[i] = 0;
-//  bsp_spi_ram_fast_read_dma(0, 50, read_buffer);
+//  bsp_spi_ram_init();
 //
-//  while(!bsp_spi_ram_is_transfer_done());
+//  uint8_t buffer[8] = {0};
+//
+//  bsp_spi_ram_read_id(buffer);
+//  bsp_spi_ram_read_id(buffer);
+//
+//  uint8_t write_buffer[50];
+//  uint8_t read_buffer[110] = {0};
+//
+//	for (uint32_t i=0; i<50;i++) write_buffer[i] = i;
+//	bsp_spi_ram_write_dma(0, 50, write_buffer);
+//	while(!bsp_spi_ram_is_transfer_done());
+//
+//	bsp_spi_ram_write_dma(50, 50, write_buffer);
+//	while(!bsp_spi_ram_is_transfer_done());
+//
+//
+//	for (uint32_t i=0; i<100;i++) read_buffer[i] = 0;
+//	bsp_spi_ram_read_dma(0, 100, read_buffer);
+//	while(!bsp_spi_ram_is_transfer_done());
+//
+//	for (uint32_t i=0; i<100;i++) read_buffer[i] = 0;
+//	bsp_spi_ram_read_dma(50, 50, read_buffer);
+//	while(!bsp_spi_ram_is_transfer_done());
+//
+//	for (uint32_t i=0; i<100;i++) read_buffer[i] = 0;
+//	bsp_spi_ram_read_dma(0, 50, read_buffer);
+//	while(!bsp_spi_ram_is_transfer_done());
+
 
   app_init();
   app_start();
   app_run();
-//  bsp_photodiode_timer1_init(1000);
-//  bsp_photodiode_sample_start(10);
 
-//  for (uint32_t i = 0;i<1000;i++) sram_data[i] = i&0xFF;
-//  bsp_spi_ram_write(0, 1000, sram_data);
   while (1)
   {
 	//  SCH_HandleScheduledTask();
@@ -1443,7 +1425,6 @@ static void MX_DMA_Init(void)
   */
 static void MX_GPIO_Init(void)
 {
-  LL_EXTI_InitTypeDef EXTI_InitStruct = {0};
   LL_GPIO_InitTypeDef GPIO_InitStruct = {0};
   /* USER CODE BEGIN MX_GPIO_Init_1 */
 
@@ -1673,6 +1654,12 @@ static void MX_GPIO_Init(void)
   LL_GPIO_Init(PHOTO_ADC_CONV_GPIO_Port, &GPIO_InitStruct);
 
   /**/
+  GPIO_InitStruct.Pin = PHOTO_ADC_EOC_Pin;
+  GPIO_InitStruct.Mode = LL_GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
+  LL_GPIO_Init(PHOTO_ADC_EOC_GPIO_Port, &GPIO_InitStruct);
+
+  /**/
   GPIO_InitStruct.Pin = IRQ_0_Pin;
   GPIO_InitStruct.Mode = LL_GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
@@ -1799,22 +1786,6 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
   GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
   LL_GPIO_Init(TEC_1_CS_GPIO_Port, &GPIO_InitStruct);
-
-  /**/
-  LL_SYSCFG_SetEXTISource(LL_SYSCFG_EXTI_PORTD, LL_SYSCFG_EXTI_LINE11);
-
-  /**/
-  EXTI_InitStruct.Line_0_31 = LL_EXTI_LINE_11;
-  EXTI_InitStruct.LineCommand = ENABLE;
-  EXTI_InitStruct.Mode = LL_EXTI_MODE_IT;
-  EXTI_InitStruct.Trigger = LL_EXTI_TRIGGER_FALLING;
-  LL_EXTI_Init(&EXTI_InitStruct);
-
-  /**/
-  LL_GPIO_SetPinPull(GPIOD, LL_GPIO_PIN_11, LL_GPIO_PULL_UP);
-
-  /**/
-  LL_GPIO_SetPinMode(GPIOD, LL_GPIO_PIN_11, LL_GPIO_MODE_INPUT);
 
   /* USER CODE BEGIN MX_GPIO_Init_2 */
 
